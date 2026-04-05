@@ -440,7 +440,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
    6. HERO
    ============================================= */
 .hero {
-  padding-top: var(--sp-12);
+  padding-top: calc(var(--header-h) + var(--sp-12));
   padding-bottom: var(--sp-12);
   background-color: var(--c-primary);
   background-image: url('https://images.unsplash.com/photo-1768070841554-eae3f3bda452?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1600&q=80');
@@ -454,7 +454,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .hero::before {
   content: '';
   position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(4,32,31,.84) 0%, rgba(7,59,58,.72) 60%, rgba(4,32,31,.80) 100%);
+  background: linear-gradient(135deg, rgba(2,18,17,.92) 0%, rgba(4,32,31,.85) 60%, rgba(2,18,17,.90) 100%);
   pointer-events: none;
   z-index: 0;
 }
@@ -632,15 +632,17 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .hero__feature-block {
-  background: rgba(255,255,255,.08);
-  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.30);
+  border: 1px solid rgba(255,255,255,.10);
   border-radius: var(--r-xl);
   padding: var(--sp-5) var(--sp-5) var(--sp-4);
   transition: background var(--t-base);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .hero__feature-block:hover {
-  background: rgba(255,255,255,.13);
+  background: rgba(0,0,0,.42);
 }
 
 .hero__feature-icon {
@@ -1791,7 +1793,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   .header__mobile-toggle { display: none; }
 
   .hero {
-    padding-top: var(--sp-20);
+    padding-top: calc(var(--header-h) + var(--sp-20));
     padding-bottom: var(--sp-20);
   }
 

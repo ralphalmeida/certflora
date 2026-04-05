@@ -21,53 +21,16 @@
   }
 
   /* ============================================
-     0. PARALLAX BANNER
-     Move o background-image do banner no scroll
-     usando transform para performance GPU.
-  ============================================ */
-  const parallaxImg = document.querySelector('.parallax-banner__img');
-
-  if (parallaxImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // Usa rAF para máxima suavidade
-    let ticking = false;
-
-    function updateParallax() {
-      const scrollY = window.scrollY;
-      const banner  = parallaxImg.closest('.parallax-banner');
-      if (!banner) return;
-
-      const bannerH = banner.offsetHeight;
-      // Só anima enquanto o banner está visível
-      if (scrollY < bannerH * 2) {
-        // Fator 0.35: movimento sutil — não exagerado
-        const offset = Math.round(scrollY * 0.35);
-        parallaxImg.style.transform = `translateY(${offset}px)`;
-      }
-      ticking = false;
-    }
-
-    window.addEventListener('scroll', function () {
-      if (!ticking) {
-        requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }, { passive: true });
-
-    // Estado inicial
-    updateParallax();
-  }
-
-  /* ============================================
      1. HEADER — sombra ao rolar
   ============================================ */
   const header = document.querySelector('.header');
 
   if (header) {
-    const parallaxBanner = document.getElementById('parallax-banner');
-    const parallaxThreshold = parallaxBanner ? parallaxBanner.offsetHeight - 10 : 20;
-
-    const onScroll = debounce(function () {
-      if (window.scrollY > parallaxThreshold) {
+      const onScroll = debounce(function () {
+      // Fica transparente enquanto o hero está visível
+      const heroEl = document.getElementById('hero');
+      const threshold = heroEl ? (heroEl.offsetHeight * 0.6) : 200;
+      if (window.scrollY > threshold) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
