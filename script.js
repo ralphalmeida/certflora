@@ -1,7 +1,7 @@
 /**
- * CertFlora — script.js
+ * NexFlora — script.js
  * JS mínimo e utilitário. Sem dependências externas.
- * Funcionalidades: header scroll, menu mobile, FAQ accordion, sticky CTA, scroll suave, validação de formulário.
+ * Funcionalidades: parallax, header scroll, menu mobile, FAQ accordion, sticky CTA, scroll suave, validação de formulário.
  */
 
 (function () {
@@ -18,6 +18,43 @@
       clearTimeout(timer);
       timer = setTimeout(() => fn.apply(this, args), delay);
     };
+  }
+
+  /* ============================================
+     0. PARALLAX BANNER
+     Move o background-image do banner no scroll
+     usando transform para performance GPU.
+  ============================================ */
+  const parallaxImg = document.querySelector('.parallax-banner__img');
+
+  if (parallaxImg && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Usa rAF para máxima suavidade
+    let ticking = false;
+
+    function updateParallax() {
+      const scrollY = window.scrollY;
+      const banner  = parallaxImg.closest('.parallax-banner');
+      if (!banner) return;
+
+      const bannerH = banner.offsetHeight;
+      // Só anima enquanto o banner está visível
+      if (scrollY < bannerH * 2) {
+        // Fator 0.35: movimento sutil — não exagerado
+        const offset = Math.round(scrollY * 0.35);
+        parallaxImg.style.transform = `translateY(${offset}px)`;
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    // Estado inicial
+    updateParallax();
   }
 
   /* ============================================
