@@ -315,7 +315,8 @@
 
     function showSuccess() {
       if (formSuccess) {
-        formSuccess.hidden = false;
+        formSuccess.removeAttribute('hidden');
+        formSuccess.classList.add('is-visible');
         formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     }
