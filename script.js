@@ -63,8 +63,11 @@
   const header = document.querySelector('.header');
 
   if (header) {
+    const parallaxBanner = document.getElementById('parallax-banner');
+    const parallaxThreshold = parallaxBanner ? parallaxBanner.offsetHeight - 10 : 20;
+
     const onScroll = debounce(function () {
-      if (window.scrollY > 20) {
+      if (window.scrollY > parallaxThreshold) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
@@ -72,6 +75,7 @@
     }, 10);
 
     window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // estado inicial
   }
 
   /* ============================================
@@ -324,30 +328,28 @@
         return;
       }
 
-      // ============================================
-      // CONFIGURAÇÃO DE ENVIO:
-      // Aqui você deve implementar o envio real do formulário.
-      // Opções:
-      //   1. Formspree: altere o action do <form> para "https://formspree.io/f/SEU_ID"
-      //      e remova este handler de submit (o formulário enviará nativamente).
-      //   2. Fetch para API própria:
-      //      const data = new FormData(form);
-      //      fetch('/api/contato', { method: 'POST', body: data })
-      //        .then(r => r.json())
-      //        .then(() => showSuccess())
-      //        .catch(() => alert('Erro ao enviar. Tente novamente.'));
-      //   3. Netlify Forms: adicione data-netlify="true" no <form>.
-      // ============================================
-
-      // Simulação de envio bem-sucedido (REMOVER quando integrar API real)
       const submitBtn = form.querySelector('.form-submit');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando...';
 
-      // Simula delay de rede
-      setTimeout(function () {
-        showSuccess();
-      }, 800);
+      const data = new FormData(form);
+
+      fetch('send.php', { method: 'POST', body: data })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.ok) {
+            showSuccess();
+          } else {
+            alert(res.error || 'Erro ao enviar. Tente novamente.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Solicitar Orçamento Rápido';
+          }
+        })
+        .catch(function () {
+          alert('Erro de conexão. Verifique sua internet e tente novamente.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Solicitar Orçamento Rápido';
+        });
     });
 
     function showSuccess() {

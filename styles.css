@@ -13,42 +13,47 @@
 }
 
 :root {
-  /* Paleta principal — CertFlora */
-  --c-50:             #d8f3dc;
-  --c-100:            #b7e4c7;
-  --c-200:            #95d5b2;
-  --c-300:            #74c69d;
-  --c-400:            #52b788;
-  --c-500:            #40916c;   /* acento principal */
-  --c-600:            #2d6a4f;   /* primary light */
-  --c-700:            #1b4332;   /* primary */
-  --c-800:            #081c15;   /* primary dark / graphite */
+  /* Paleta principal — NexFlora */
+  --c-50:             #e8f5ec;
+  --c-100:            #c4e6cd;
+  --c-200:            #9dd5ae;
+  --c-300:            #6bbf59;   /* Moss Green */
+  --c-400:            #6bbf59;   /* Moss Green */
+  --c-500:            #08a045;   /* Medium Jungle */
+  --c-600:            #0b6e4f;   /* Dark Emerald */
+  --c-700:            #073b3a;   /* Dark Teal — primary */
+  --c-800:            #04201f;   /* primary dark / graphite */
 
   /* Aliases semânticos */
   --c-primary:        var(--c-700);
-  --c-primary-mid:    #163828;
+  --c-primary-mid:    #052c2b;
   --c-primary-light:  var(--c-600);
   --c-accent:         var(--c-500);
   --c-accent-hover:   var(--c-600);
 
+  /* Cor complementar — Soft Fawn */
+  --c-fawn:           #ddb771;
+  --c-fawn-bg:        rgba(221,183,113,.10);
+  --c-fawn-border:    rgba(221,183,113,.28);
+
   /* Neutros premium — derivados da paleta */
   --c-white:          #ffffff;
-  --c-off-white:      #f4faf6;
-  --c-surface:        #ecf6f0;
-  --c-border:         #cde8d8;
-  --c-border-mid:     #a8d4bc;
-  --c-muted:          #6a9e82;
-  --c-text-secondary: #2d5240;
-  --c-text-primary:   #0d2018;
+  --c-off-white:      #f5f7f5;
+  --c-surface:        #edf2ed;
+  --c-border:         #ccdece;
+  --c-border-mid:     #a5c4a7;
+  --c-muted:          #5a8f6a;
+  --c-text-secondary: #1e3d35;
+  --c-text-primary:   #061918;
   --c-graphite:       var(--c-800);
 
-  /* Destaque dourado — sutil, premium */
-  --c-gold:           #b8963c;
-  --c-gold-bg:        rgba(184,150,60,.08);
-  --c-gold-border:    rgba(184,150,60,.22);
+  /* Destaque dourado — Soft Fawn como acento premium */
+  --c-gold:           #ddb771;
+  --c-gold-bg:        rgba(221,183,113,.08);
+  --c-gold-border:    rgba(221,183,113,.22);
 
   /* Feedback */
-  --c-success:        var(--c-500);
+  --c-success:        #0b6e4f;
   --c-error:          #b83232;
   --c-warning-bg:     rgba(184,150,60,.07);
 
@@ -216,13 +221,13 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   background-color: var(--c-primary);
   color: var(--c-white);
   border-color: var(--c-primary);
-  box-shadow: 0 2px 8px rgba(21,46,32,.22);
+  box-shadow: 0 2px 8px rgba(7,59,58,.22);
 }
 .btn--primary:hover {
   background-color: var(--c-graphite);
   border-color: var(--c-graphite);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(21,46,32,.28);
+  box-shadow: 0 6px 20px rgba(7,59,58,.28);
 }
 .btn--primary:active { transform: translateY(0); box-shadow: var(--sh-xs); }
 
@@ -293,16 +298,46 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   position: fixed; top: 0; left: 0; right: 0;
   z-index: 1000;
   height: var(--header-h);
-  background-color: rgba(255,255,255,.97);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--c-border);
-  transition: box-shadow var(--t-base), border-color var(--t-base);
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--t-base), box-shadow var(--t-base), border-color var(--t-base);
+}
+
+/* Logo e links em branco quando header é transparente */
+.header:not(.scrolled) .logo-mark,
+.header:not(.scrolled) .logo-accent {
+  color: var(--c-white);
+}
+
+.header:not(.scrolled) .nav__link {
+  color: rgba(255,255,255,.85);
+}
+
+.header:not(.scrolled) .nav__link:hover {
+  color: var(--c-white);
+}
+
+.header:not(.scrolled) .header__cta {
+  background-color: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.5);
+  color: var(--c-white);
+}
+
+.header:not(.scrolled) .header__cta:hover {
+  background-color: rgba(255,255,255,.25);
+  border-color: var(--c-white);
+}
+
+.header:not(.scrolled) .header__mobile-toggle span {
+  background-color: var(--c-white);
 }
 
 .header.scrolled {
+  background-color: rgba(255,255,255,.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--sh-md);
-  border-color: var(--c-border-mid);
+  border-color: var(--c-border);
 }
 
 .header__inner {
@@ -407,7 +442,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .hero {
   padding-top: var(--sp-12);      /* parallax banner acima já cria separação */
   padding-bottom: var(--sp-12);
-  background: linear-gradient(160deg, #f3f5f1 0%, #edf0ea 55%, #e4ebe0 100%);
+  background: linear-gradient(160deg, #f2f5f2 0%, #eaeeea 55%, #e2ebe6 100%);
   position: relative;
   overflow: hidden;
 }
@@ -434,8 +469,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  background: rgba(21,46,32,.06);
-  border: 1px solid rgba(21,46,32,.14);
+  background: rgba(7,59,58,.06);
+  border: 1px solid rgba(7,59,58,.14);
   color: var(--c-primary);
   font-size: var(--fs-xs);
   font-weight: 800;
@@ -461,7 +496,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 /* Heading hero */
 .hero__heading {
-  font-size: var(--fs-3xl);
+  font-size: clamp(1.75rem, 5vw, 2.125rem);
   font-weight: 900;
   line-height: 1.1;
   letter-spacing: -.025em;
@@ -473,6 +508,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   display: block;
   color: var(--c-primary);
   position: relative;
+  white-space: normal;
 }
 
 .heading-accent::after {
@@ -813,9 +849,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   font-size: var(--fs-xs); font-weight: 800;
   text-transform: uppercase; letter-spacing: .08em;
   padding: 5px 12px; border-radius: var(--r-full);
-  background: rgba(58,140,92,.1);
+  background: rgba(8,160,69,.1);
   color: var(--c-accent);
-  border: 1px solid rgba(58,140,92,.2);
+  border: 1px solid rgba(8,160,69,.2);
 }
 
 .service-card__type-tag--alt {
@@ -867,7 +903,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .service-card__result {
   display: flex; align-items: flex-start; gap: var(--sp-2);
-  background: rgba(21,46,32,.05);
+  background: rgba(7,59,58,.05);
   border-left: 3px solid var(--c-accent);
   border-radius: 0 var(--r-md) var(--r-md) 0;
   padding: var(--sp-3) var(--sp-4);
@@ -915,7 +951,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-size: var(--fs-md); font-weight: 900;
-  box-shadow: 0 4px 12px rgba(21,46,32,.22);
+  box-shadow: 0 4px 12px rgba(7,59,58,.22);
   flex-shrink: 0; z-index: 1;
 }
 
@@ -925,15 +961,15 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .process-step__connector {
   width: 2px; flex: 1; min-height: 32px;
-  background: linear-gradient(to bottom, rgba(21,46,32,.25), rgba(21,46,32,.08));
+  background: linear-gradient(to bottom, rgba(7,59,58,.25), rgba(7,59,58,.08));
   margin-top: var(--sp-2);
 }
 
 .process-step__body { flex: 1; padding-top: var(--sp-1); }
 
 .process-step__body--final {
-  background: rgba(31,122,71,.04);
-  border: 1px solid rgba(31,122,71,.14);
+  background: rgba(8,160,69,.04);
+  border: 1px solid rgba(8,160,69,.14);
   border-radius: var(--r-lg);
   padding: var(--sp-5) var(--sp-6);
 }
@@ -949,15 +985,15 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .process-step__tag--highlight {
-  background: rgba(21,46,32,.08);
+  background: rgba(7,59,58,.08);
   color: var(--c-primary);
-  border: 1px solid rgba(21,46,32,.15);
+  border: 1px solid rgba(7,59,58,.15);
 }
 
 .process-step__tag--success {
-  background: rgba(31,122,71,.1);
+  background: rgba(8,160,69,.1);
   color: var(--c-success);
-  border: 1px solid rgba(31,122,71,.2);
+  border: 1px solid rgba(8,160,69,.2);
 }
 
 .process-step__title {
@@ -1017,7 +1053,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .benefit-card__icon {
   width: 46px; height: 46px;
-  background: rgba(21,46,32,.07);
+  background: rgba(7,59,58,.07);
   border-radius: var(--r-md);
   display: flex; align-items: center; justify-content: center;
   color: var(--c-primary); flex-shrink: 0;
@@ -1071,7 +1107,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .segment-card__icon {
   width: 44px; height: 44px;
-  background: rgba(21,46,32,.07);
+  background: rgba(7,59,58,.07);
   border-radius: var(--r-md);
   display: flex; align-items: center; justify-content: center;
   color: var(--c-primary); flex-shrink: 0;
@@ -1151,7 +1187,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   background: var(--c-700);   /* fundo verde escuro para contraste */
 }
 
-.testimonials .section-overline { color: var(--c-300); }
+.testimonials .section-overline { color: var(--c-fawn); }
 .testimonials .section-title    { color: var(--c-white); }
 
 .testimonials__grid {
@@ -1164,7 +1200,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   background: rgba(255,255,255,.06);
   border: 1px solid rgba(255,255,255,.12);
   border-radius: var(--r-2xl);
-  padding: var(--sp-7) var(--sp-7) var(--sp-6);
+  padding: var(--sp-8) var(--sp-8) var(--sp-6);
   display: flex; flex-direction: column; gap: 0;
   transition: all var(--t-base);
   position: relative;
@@ -1174,7 +1210,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .testimonial-card::before {
   content: '';
   position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--c-400), var(--c-300));
+  background: linear-gradient(90deg, var(--c-fawn), var(--c-500));
   opacity: 0;
   transition: opacity var(--t-base);
 }
@@ -1196,7 +1232,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .testimonial-card__quote-mark {
   font-size: 4rem; font-weight: 900; line-height: .85;
-  color: var(--c-400); font-family: Georgia, serif;
+  color: var(--c-fawn); font-family: Georgia, serif;
   letter-spacing: -.05em; user-select: none;
 }
 
@@ -1222,8 +1258,8 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .testimonial-avatar {
   width: 44px; height: 44px; border-radius: 50%;
-  background: var(--c-500);
-  border: 2px solid var(--c-400);
+  background: var(--c-600);
+  border: 2px solid var(--c-fawn);
   color: var(--c-white);
   display: flex; align-items: center; justify-content: center;
   font-size: var(--fs-sm); font-weight: 800; flex-shrink: 0;
@@ -1237,7 +1273,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 }
 
 .testimonial-card__author span {
-  font-size: var(--fs-sm); color: var(--c-300);
+  font-size: var(--fs-sm); color: var(--c-fawn);
 }
 
 /* =============================================
@@ -1245,7 +1281,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
    ============================================= */
 .cta-banner {
   padding-block: var(--sp-16);
-  background: linear-gradient(140deg, #0f2418 0%, var(--c-primary) 55%, var(--c-primary-mid) 100%);
+  background: linear-gradient(140deg, #021515 0%, var(--c-primary) 55%, var(--c-primary-mid) 100%);
   position: relative; overflow: hidden;
 }
 
@@ -1470,7 +1506,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   outline: none;
   border-color: var(--c-primary);
   background: var(--c-white);
-  box-shadow: 0 0 0 3px rgba(21,46,32,.08);
+  box-shadow: 0 0 0 3px rgba(7,59,58,.08);
 }
 
 .form-input::placeholder { color: var(--c-muted); }
@@ -1815,9 +1851,9 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 .parallax-banner {
   position: relative;
   width: 100%;
-  height: 200px;
+  height: 150px;
   overflow: hidden;
-  margin-top: var(--header-h);   /* empurra abaixo do header fixo */
+  /* sem margin-top: o header fica sobreposto e transparente */
 }
 
 .parallax-banner__img {
@@ -1839,14 +1875,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
   );
 }
 
-@media (min-width: 768px) {
-  .parallax-banner { height: 260px; }
-}
-
-@media (min-width: 1024px) {
-  .parallax-banner { height: 300px; }
-  .parallax-banner__img { inset: -60px 0; }
-}
+/* parallax: altura fixa 150px em todos os viewports */
 
 /* =============================================
    MARQUEE DE SEGMENTOS
@@ -1897,7 +1926,7 @@ button { font-family: var(--font); cursor: pointer; border: none; background: no
 
 .marquee-dot {
   font-size: 6px;
-  color: var(--c-400);
+  color: var(--c-fawn);
   line-height: 1;
 }
 
